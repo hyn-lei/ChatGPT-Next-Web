@@ -5,6 +5,7 @@ import "./styles/highlight.scss";
 import { getClientConfig } from "./config/client";
 import { type Metadata } from "next";
 import Script from "next/script";
+import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "ChatGPT Next Web",
@@ -45,6 +46,11 @@ export default function RootLayout({
           gtag('config', 'G-HN22XZPC9P');
         `}
         </Script>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5820497200009964"
+          crossOrigin="anonymous"
+        ></Script>
       </head>
       <body>{children}</body>
     </html>
