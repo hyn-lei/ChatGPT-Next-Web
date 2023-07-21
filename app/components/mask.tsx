@@ -215,58 +215,70 @@ function ContextPromptItem(props: {
   const [focusingInput, setFocusingInput] = useState(false);
 
   return (
-    <div className={chatStyle["context-prompt-row"]}>
-      {!focusingInput && (
-        <>
-          <div className={chatStyle["context-drag"]}>
-            <DragIcon />
-          </div>
-          <Select
-            value={props.prompt.role}
-            className={chatStyle["context-role"]}
-            onChange={(e) =>
+    <Draggable
+      draggableId={props.prompt.id || props.index.toString()}
+      index={props.index}
+    >
+      {(provided) => (
+        <div
+          className={chatStyle["context-prompt-row"]}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          {!focusingInput && (
+            <>
+              <div className={chatStyle["context-drag"]}>
+                <DragIcon />
+              </div>
+              <Select
+                value={props.prompt.role}
+                className={chatStyle["context-role"]}
+                onChange={(e) =>
+                  props.update({
+                    ...props.prompt,
+                    role: e.target.value as any,
+                  })
+                }
+              >
+                {ROLES.map((r) => (
+                  <option key={r} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </Select>
+            </>
+          )}
+          <Input
+            value={props.prompt.content}
+            type="text"
+            className={chatStyle["context-content"]}
+            rows={focusingInput ? 5 : 1}
+            onFocus={() => setFocusingInput(true)}
+            onBlur={() => {
+              setFocusingInput(false);
+              // If the selection is not removed when the user loses focus, some
+              // extensions like "Translate" will always display a floating bar
+              window?.getSelection()?.removeAllRanges();
+            }}
+            onInput={(e) =>
               props.update({
                 ...props.prompt,
-                role: e.target.value as any,
+                content: e.currentTarget.value as any,
               })
             }
-          >
-            {ROLES.map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
-            ))}
-          </Select>
-        </>
+          />
+          {!focusingInput && (
+            <IconButton
+              icon={<DeleteIcon />}
+              className={chatStyle["context-delete-button"]}
+              onClick={() => props.remove()}
+              bordered
+            />
+          )}
+        </div>
       )}
-      <Input
-        value={props.prompt.content}
-        type="text"
-        className={chatStyle["context-content"]}
-        rows={focusingInput ? 5 : 1}
-        onFocus={() => setFocusingInput(true)}
-        onBlur={() => {
-          setFocusingInput(false);
-          // If the selection is not removed when the user loses focus, some
-          // extensions like "Translate" will always display a floating bar
-          window?.getSelection()?.removeAllRanges();
-        }}
-        onInput={(e) =>
-          props.update({
-            ...props.prompt,
-            content: e.currentTarget.value as any,
-          })
-        }
-      />
-      {!focusingInput && (
-        <IconButton
-          icon={<DeleteIcon />}
-          className={chatStyle["context-delete-button"]}
-          onClick={() => props.remove()}
-          bordered
-        />
-      )}
-    </div>
+    </Draggable>
   );
 }
 

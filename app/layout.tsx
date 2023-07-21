@@ -3,7 +3,6 @@ import "./styles/globals.scss";
 import "./styles/markdown.scss";
 import "./styles/highlight.scss";
 import { getClientConfig } from "./config/client";
-import Script from "next/script";
 import { type Metadata } from "next";
 import Script from "next/script";
 
