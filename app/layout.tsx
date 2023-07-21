@@ -35,11 +35,12 @@ export default function RootLayout({
         <meta name="config" content={JSON.stringify(getClientConfig())} />
         <link rel="manifest" href="/site.webmanifest"></link>
         <script src="/serviceWorkerRegister.js" defer></script>
-        <Script
+        <script
           charSet="UTF-8"
           id="LA_COLLECT"
           src="//sdk.51.la/js-sdk-pro.min.js"
-        ></Script>
+          defer
+        ></script>
         <Script id="la-analytics">{`LA.init({id:"K8LQpPJSIaNPKdOF",ck:"K8LQpPJSIaNPKdOF"})`}</Script>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-HN22XZPC9P"></Script>
         <Script id="google-analytics">
