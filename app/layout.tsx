@@ -51,11 +51,11 @@ export default function RootLayout({
               gtag('config', 'G-HN22XZPC9P');
         `}
         </Script>
-        <Script
+        <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5820497200009964"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3477300805833621"
           crossOrigin="anonymous"
-        ></Script>
+        ></script>
       </head>
       <body>{children}</body>
     </html>
